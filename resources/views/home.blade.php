@@ -16,7 +16,7 @@
     <div class="flex justify-center text-3xl mb-24">
         <h1>Events</h1>
     </div>
-    
+    <h1>hallo</h1>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 lg:px-24">
         @foreach ($events as $event)
             <div class="border rounded-2xl p-4  bg-white shadow-md">
