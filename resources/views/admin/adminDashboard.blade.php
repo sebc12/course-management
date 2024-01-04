@@ -10,7 +10,7 @@
 <body>
     <div class="lg:flex w-screen h-screen">
        
-        <div class="lg:w-1/5 bg-gray-500 lg:pt-10 py-4 flex flex-col items-center justify-center text-2xl lg:h-full lg:fixed lg:top-0 lg:left-0 lg:static overflow-auto">
+        <div class="lg:w-1/5 w-screen bg-gray-500 lg:pt-10 py-4 flex flex-col items-center justify-center text-2xl lg:h-full lg:fixed lg:top-0 lg:left-0 lg:static lg:overflow-auto">
             <ul>
                 <li class="mb-10">
                     <a href="#" onclick="showPage('newCourse')">New Course</a>
@@ -20,8 +20,8 @@
                 </li>
             </ul>
         </div>
-        <div class="lg:w-4/5 pt-10 m-auto pl-60 pb-10">
-            <form action="{{ route('logout') }}" method="POST" class="flex justify-end pr-16">
+        <div class="lg:w-4/5 w-screen pt-10 m-auto px-2 lg:pl-60 pb-10">
+            <form action="{{ route('logout') }}" method="POST" class="flex justify-end">
                 @csrf
                 <button type="submit" class="border border-black rounded-3xl px-3 p-1">Sign out</button>
             </form>

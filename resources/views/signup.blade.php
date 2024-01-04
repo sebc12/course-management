@@ -54,11 +54,6 @@
         </div>            
             <div>
                 <button type="submit" class="border border-black rounded-3xl w-full px-6 p-1">Submit</button>
-                @error('role')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
             </div>
     </form>
 </div>
