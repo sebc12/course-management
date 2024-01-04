@@ -20,6 +20,7 @@ class SignupController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|in:user,admin',
         ]);
 
         // Create a new user
@@ -27,13 +28,12 @@ class SignupController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role' => 'user',
+            'role' => $request->role,
         ]);
 
         // Log the user in
         Auth::login($user);
 
-        // Redirect to the user's dashboard or home page
-        return redirect('/');
+        return $request->role === 'admin' ? redirect('/admin-dashboard') : redirect('/');
     }
 }

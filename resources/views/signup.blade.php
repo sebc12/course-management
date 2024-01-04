@@ -51,9 +51,20 @@
             <div class="col-md-6">
                 <input id="password-confirm" type="password" name="password_confirmation" class="border border-black rounded p-1" required>
             </div>
-        </div>            
+        </div>
+        <div>
+            <select id="role" name="role" class="border border-black rounded p-1 mb-14" required>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
             <div>
                 <button type="submit" class="border border-black rounded-3xl w-full px-6 p-1">Submit</button>
+                @error('role')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
     </form>
 </div>
