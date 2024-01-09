@@ -15,7 +15,7 @@ class SignupController extends Controller
 
     public function register(Request $request)
     {
-        // Validation logic
+        // Validation
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',

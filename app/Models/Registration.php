@@ -12,7 +12,6 @@ class Registration extends Model
     protected $fillable = [
         'user_id',
         'event_id',
-        // Add other registration fields as needed
     ];
 
     public function user()
