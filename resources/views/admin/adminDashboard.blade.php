@@ -64,14 +64,14 @@
                             <strong>{{ $event->name }}</strong> - Participants: {{ $event->registrations_count }}
                             <div>
                             <button onclick="showParticipants({{ $event->id }})" class="border rounded-2xl w-1/4 my-4">Show</button>
-                            <form action="{{ route('events.delete', $event->id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this event?')">
+                            <form action="{{ route('events.delete', $event->id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this course?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="border rounded-2xl w-1/4 my-4">Delete</button>
                             </form>
+                            <a href="{{ route('events.edit', ['id' => $event->id]) }}">Edit</a>
                         </div>
                             <div id="participants_{{ $event->id }}" class="hidden">
-                                <!-- Content for displaying participants for this event -->
                                 @foreach($event->registrations as $registration)
                                     {{ $registration->user->name }} -
                                     {{ $registration->user->email }}<br>

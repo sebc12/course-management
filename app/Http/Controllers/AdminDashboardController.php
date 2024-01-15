@@ -53,4 +53,32 @@ class AdminDashboardController extends Controller
 
         return redirect()->back()->with('success', 'Event deleted successfully');
     }
+
+    public function edit($id)
+    {
+        $event = Event::findOrFail($id);
+
+        return view('admin.adminEditCourse', compact('event'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $event = Event::findOrFail($id);
+
+        // Validate the form data as needed
+        $request->validate([
+            'name' => 'required|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
+            'location' => 'required|string',
+            'capacity' => 'required|integer',
+            'price' => 'required|numeric',
+            'Description' => 'nullable|string',
+
+        ]);
+
+        $event->update($request->all());
+
+        return redirect('/admin-dashboard');
+    }
 }

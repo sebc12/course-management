@@ -43,6 +43,8 @@ Route::middleware([AdminMiddleware::class])->group(function () {
     Route::get('/admin-dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin-dashboard');
     Route::post('/admin-dashboard', [AdminDashboardController::class, 'store'])->name('events.store');
     Route::delete('/evenets/{id}', [AdminDashboardController::class, 'delete'])->name('events.delete');
+    Route::get('/events/{id}/edit', [AdminDashboardController::class, 'edit'])->name('events.edit');
+    Route::put('/events/{id}', [AdminDashboardController::class, 'update'])->name('events.update');
 });
 
 
