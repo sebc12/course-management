@@ -45,4 +45,12 @@ class AdminDashboardController extends Controller
             return redirect()->back()->with('error', 'An error occurred while saving the event.');
         }
     }
+
+    public function delete($id)
+    {
+        $event = Event::findOrFail($id);
+        $event->delete();
+
+        return redirect()->back()->with('success', 'Event deleted successfully');
+    }
 }

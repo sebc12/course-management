@@ -62,7 +62,14 @@
                     @foreach($events as $event)
                         <div class="border p-4 flex flex-col">
                             <strong>{{ $event->name }}</strong> - Participants: {{ $event->registrations_count }}
-                            <button  onclick="showParticipants({{ $event->id }})" class="border rounded-2xl w-1/2 my-4">Show Participants</button>
+                            <div>
+                            <button onclick="showParticipants({{ $event->id }})" class="border rounded-2xl w-1/4 my-4">Show</button>
+                            <form action="{{ route('events.delete', $event->id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this event?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="border rounded-2xl w-1/4 my-4">Delete</button>
+                            </form>
+                        </div>
                             <div id="participants_{{ $event->id }}" class="hidden">
                                 <!-- Content for displaying participants for this event -->
                                 @foreach($event->registrations as $registration)
