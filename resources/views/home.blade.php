@@ -8,11 +8,21 @@
     <title>Document</title>
 </head>
 <body class="bg-gray-200">
-    <div class="py-10">
+    <div>
+        <ul class="flex justify-center gap-8 text-2xl pt-10">
+            <li>
+                <a class="hover:text-green-500" href="{{ route('home') }}">Courses</a>
+            </li>
+            <li>
+                <a class="hover:text-green-500" href="{{ route('events.registered', ['user_id' => Auth::id()]) }}">Registered courses</a>
+            </li>
+        </ul>
         <form action="{{ route('logout') }}" method="POST" class="flex justify-end pr-16">
             @csrf
-            <button type="submit" class="border border-black rounded-3xl px-3 p-1">Sign out</button>
+            <button type="submit" class="border border-black rounded-3xl px-3 p-1 hover:bg-red-400">Sign out</button>
         </form>
+    </div>
+    <div class="py-10" id="coursePage">
     <div class="flex justify-center text-3xl mb-24">
         <h1>Events</h1>
     </div>
@@ -29,10 +39,10 @@
                 
                 </div> 
                 <a href="{{ route('events.show', ['id' => $event->id]) }}" class="border rounded-3xl flex justify-center w-1/2 m-auto p-2 px-4 bg-gray-400 hover:bg-green-500">Read more</a>
-
             </div>
         @endforeach
     </div>
     </div>
+   
 </body>
 </html>

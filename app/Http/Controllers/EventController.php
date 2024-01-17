@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Event;
 use App\Models\Registration;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class EventController extends Controller
         return view('showEvent', ['event' => $event]);
     }
 
-    public function register(Request $request, $id)
+    public function register($id)
     {
         $event = Event::findOrFail($id);
 
@@ -32,7 +33,7 @@ class EventController extends Controller
             ->first();
 
         if ($existingRegistration) {
-            return redirect()->back()->with('error', 'You are already registered for this event.');
+            return redirect()->back()->with('error', 'You are already registered for this course.');
         }
 
         // Check if the event has reached its capacity

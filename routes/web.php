@@ -36,6 +36,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [EventController::class, 'getAllEvents'])->name('home');
     Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
     Route::post('/events/{id}/register', [EventController::class, 'register'])->name('events.register');
+    Route::get('/course/registered{user_id}', [RegistrationController::class, 'showRegisteredEvents'])->name('events.registered');
+    Route::delete('/unregister/{event}', [RegistrationController::class, 'unregister'])->name('events.unregister');
 });
 
 
@@ -50,3 +52,5 @@ Route::middleware([AdminMiddleware::class])->group(function () {
 
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');

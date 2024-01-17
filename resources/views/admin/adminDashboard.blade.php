@@ -21,12 +21,12 @@
             </ul>
         </div>
         <div class="lg:w-4/5 w-screen pt-10 m-auto px-2 lg:pl-60 pb-10">
-            <form action="{{ route('logout') }}" method="POST" class="flex justify-end">
+            <form action="{{ route('admin.logout') }}" method="POST" class="flex justify-end">
                 @csrf
                 <button type="submit" class="border border-black rounded-3xl px-3 p-1">Sign out</button>
             </form>
-            <h1 class="flex justify-center text-4xl">Dashboard</h1>
             <div id="newCoursePage">
+                <h1 class="flex justify-center text-3xl">New Course</h1>
                 <form action="{{ route('events.store') }}" method="post" class="flex flex-col px-6 lg:w-1/3 m-auto mt-14 gap-1 pb-6">
                     @csrf
                     <label for="">Coruse Name</label>
@@ -57,26 +57,29 @@
             </div>
             <div id="participantsPage" style="display: none;">
                 <!-- Content for the participants page -->
-                <h2 class="flex justify-center text-2xl my-10">Events and Participants</h2>
+                <h2 class="flex justify-center text-3xl py-6">Events and Participants</h2>
                 <ul class="grid grid-cols-1 lg:grid-cols-3 gap-4 px-6">
                     @foreach($events as $event)
-                        <div class="border p-4 flex flex-col">
+                        <div class="border border-black p-4 flex flex-col">
                             <strong>{{ $event->name }}</strong> - Participants: {{ $event->registrations_count }}
                             <div>
-                            <button onclick="showParticipants({{ $event->id }})" class="border rounded-2xl w-1/4 my-4">Show</button>
-                            <form action="{{ route('events.delete', $event->id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this course?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="border rounded-2xl w-1/4 my-4">Delete</button>
-                            </form>
-                            <a href="{{ route('events.edit', ['id' => $event->id]) }}">Edit</a>
-                        </div>
+                            <button onclick="showParticipants({{ $event->id }})" class="border border-black rounded-2xl w-1/4 my-4 hover:bg-green-500">Show</button>
                             <div id="participants_{{ $event->id }}" class="hidden">
                                 @foreach($event->registrations as $registration)
                                     {{ $registration->user->name }} -
                                     {{ $registration->user->email }}<br>
                                 @endforeach
                             </div>
+                            <div class="flex justify-between mt-10">
+                            <form action="{{ route('events.delete', $event->id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this course?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="border border-black rounded-2xl px-4 hover:bg-red-500">Delete</button>
+                            </form>
+                            <a href="{{ route('events.edit', ['id' => $event->id]) }}" class="border border-black rounded-2xl px-4 hover:bg-green-500">Edit</a>
+                        </div>
+                        </div>
+                            
                         </div>
                     @endforeach
                 </ul>

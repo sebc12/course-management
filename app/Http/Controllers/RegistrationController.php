@@ -2,30 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Event;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 
 class RegistrationController extends Controller
 {
-    /*public function register(Event $event, Request $request)
+    public function showRegisteredEvents($id)
     {
-        // Validate the form data
-        $request->validate([
-            'participant_name' => 'required|string|max:255',
-            'participant_email' => 'required|email|max:255',
-        ]);
+        $user = User::with('registrations.event')->find($id);
 
-        // Create a new registration record
-        $registration = new Registration([
-            'event_id' => $event->id,
-            'participant_name' => $request->input('participant_name'),
-            'participant_email' => $request->input('participant_email'),
-        ]);
+        $registeredEvents = $user->registrations->pluck('event');
 
-        $registration->save();
+        return view('registeredEvents', compact('registeredEvents'));
+    }
 
-        // You can add a success message or redirect the user to a confirmation page
-        return redirect()->route('home')->with('success', 'Registration successful!');
-    }*/
+    public function unregister(Event $event)
+    {
+        $user = auth()->user();
+
+        // Find the registration record for the user and the event
+        $registration = Registration::where('user_id', $user->id)
+            ->where('event_id', $event->id)
+            ->first();
+
+        if ($registration) {
+            // Remove the registration record
+            $registration->delete();
+
+            return redirect()->back()->with('success', 'Successfully unregistered from the course.');
+        } else {
+            return redirect()->back()->with('error', 'error.');
+        }
+    }
 }

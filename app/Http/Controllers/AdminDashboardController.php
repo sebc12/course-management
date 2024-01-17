@@ -11,7 +11,6 @@ class AdminDashboardController extends Controller
     {
         $events = Event::withCount('registrations')->get();
         return view('admin.adminDashboard', ['events' => $events]);
-        return view('admin.adminDashboard');
     }
 
     public function store(Request $request)
@@ -41,7 +40,6 @@ class AdminDashboardController extends Controller
             return redirect()->back()->with('success', 'Event saved successfully!');
         } catch (\Exception $e) {
 
-            // Redirect back with an error message
             return redirect()->back()->with('error', 'An error occurred while saving the event.');
         }
     }
@@ -49,6 +47,7 @@ class AdminDashboardController extends Controller
     public function delete($id)
     {
         $event = Event::findOrFail($id);
+        $event->registrations()->delete();
         $event->delete();
 
         return redirect()->back()->with('success', 'Event deleted successfully');
@@ -58,14 +57,13 @@ class AdminDashboardController extends Controller
     {
         $event = Event::findOrFail($id);
 
-        return view('admin.adminEditCourse', compact('event'));
+        return view('admin.adminEditCourse', ['event' => $event]);
     }
 
     public function update(Request $request, $id)
     {
         $event = Event::findOrFail($id);
 
-        // Validate the form data as needed
         $request->validate([
             'name' => 'required|string',
             'start_date' => 'required|date',

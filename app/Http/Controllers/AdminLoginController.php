@@ -19,14 +19,22 @@ class AdminLoginController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            // Check if the user has the 'admin' role
             if ($user->role === 'admin') {
-                // Authentication passed and user has admin role
                 return redirect()->intended('/admin-dashboard');
             }
         }
 
-        // Authentication failed or user doesn't have admin role
         return redirect()->route('admin.login')->withErrors(['email' => 'Invalid credentials']);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/admin-login');
     }
 }
