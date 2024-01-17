@@ -56,7 +56,6 @@
                 </form>
             </div>
             <div id="participantsPage" style="display: none;">
-                <!-- Content for the participants page -->
                 <h2 class="flex justify-center text-3xl py-6">Events and Participants</h2>
                 <ul class="grid grid-cols-1 lg:grid-cols-3 gap-4 px-6">
                     @foreach($events as $event)
